@@ -1,29 +1,16 @@
 
 services:
-  # python-dev:
-  #   build: 
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   image: registry.lemontree.local/python-dev:latest
-  #   container_name: python-dev
-  #   volumes:
-  #     - ../:/workspace
-  #   environment:
-  #     - PYTHONUNBUFFERED=1
-  #   command: sh -c "python /workspace/app/app.py && tail -f /dev/null"
-
   netbox:
     build: 
       context: .
       dockerfile: Dockerfile
-      image: registry.lemontree.local/python-dev:latest
+    image: registry.lemontree.local/netbox-dev:dev
     container_name: netbox
     ports:
       - "8000:8080"
     env_file: ./netbox.env
     volumes:
       - netbox-media:/opt/netbox/netbox/media
-      # - ../plugins:/opt/netbox/netbox/plugins
       - ../:/workspace
     depends_on:
       - postgres

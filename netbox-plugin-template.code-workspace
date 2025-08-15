@@ -6,13 +6,17 @@
 	],
 	"settings": {
 		"cSpell.words": [
+			"collectstatic",
 			"debugpy",
 			"devcontainers",
+			"isready",
 			"netboxcommunity",
 			"PYTHONUNBUFFERED",
 			"requirepass",
+			"runserver",
 			"setuptools",
-			"toolsai"
+			"toolsai",
+			"venv"
 		]
 	},
 	"launch": {
