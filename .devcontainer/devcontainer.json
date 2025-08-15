@@ -3,7 +3,8 @@
   "dockerComposeFile": "./docker-compose.yml",
   "service": "netbox",
   "workspaceFolder": "/workspace",  
-  "postStartCommand": "chmod o+x /workspace/.devcontainer/startup.sh && /workspace/.devcontainer/startup.sh",
+  "postStartCommand": "echo NetBox DevContainer is up!",
+  "overrideCommand": false,      // Allow our Compose command to run
   "features": {
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.12"

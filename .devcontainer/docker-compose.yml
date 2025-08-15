@@ -13,7 +13,10 @@ services:
   #   command: sh -c "python /workspace/app/app.py && tail -f /dev/null"
 
   netbox:
-    image: netboxcommunity/netbox:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      image: registry.lemontree.local/python-dev:latest
     container_name: netbox
     ports:
       - "8000:8080"
@@ -25,7 +28,12 @@ services:
     depends_on:
       - postgres
       - redis
-    command: sh -c "echo command && tail -f /dev/null"
+    entrypoint: []                # Clear any upstream entrypoint
+    command:                      # This is passed as "$@" to dev-entrypoint.sh
+      - /opt/netbox/venv/bin/python3
+      - /opt/netbox/netbox/manage.py
+      - runserver
+      - 0.0.0.0:8080
 
   postgres:
     image: postgres:17.5-alpine
