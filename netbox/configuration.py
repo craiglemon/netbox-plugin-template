@@ -61,5 +61,5 @@ NAPALM_ARGS = {
 }
 
 # Timezone
-TIME_ZONE = os.getenv("TIME_ZONE")
+TIME_ZONE = os.getenv("TZ")
 USE_TZ = True

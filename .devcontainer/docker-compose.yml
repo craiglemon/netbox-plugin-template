@@ -10,8 +10,6 @@ services:
       - "8000:8080"
     env_file: 
       - netbox.env
-    environment:
-      - TZ=${TIME_ZONE}
     volumes:
       - netbox-media:/opt/netbox/netbox/media
       - netbox-static:/opt/netbox/netbox/static
@@ -25,8 +23,6 @@ services:
     container_name: netbox-postgres
     env_file: 
       - netbox.env
-    environment:
-      - TZ=${TIME_ZONE}
     volumes:
       - netbox_db_data:/var/lib/postgresql/data
     
@@ -35,8 +31,6 @@ services:
     container_name: netbox-redis
     env_file: 
       - netbox.env
-    environment:
-      - TZ=${TIME_ZONE}
     volumes:
       - netbox_redis_data:/data
 
