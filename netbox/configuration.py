@@ -41,13 +41,15 @@ REDIS = {
 }
 
 # Plugins
-PLUGINS = os.getenv("NETBOX_PLUGINS", "").split(",") if os.getenv("NETBOX_PLUGINS") else []
+PLUGINS = [
+    'demo_plugin'
+]
 
 # Plugin config (optional example)
 PLUGINS_CONFIG = {
-    # 'my_plugin': {
-    #     'some_setting': os.getenv("MY_PLUGIN_SETTING", "default_value")
-    # }
+    'demo_plugin': {
+        'some_setting': os.getenv("MY_PLUGIN_SETTING", "default_value")
+    }
 }
 
 # NetBox internal settings

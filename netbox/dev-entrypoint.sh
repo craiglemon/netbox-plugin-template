@@ -3,16 +3,20 @@ set -euo pipefail
 
 cd /opt/netbox/netbox
 
-# 1. Create symbolic link from our plugins source to the netbox plugins directory. 
-if [ ! -d /opt/netbox/netbox/plugins ]; then
-    echo "Creating symbolic link to plugins directory..."
-    ln -s /workspace/plugins /opt/netbox/netbox/plugins
+# Create symbolic link to the configuration.py file if it does not exist
+echo "Creating symbolic link to configuration.py..."
+
+if [ ! -e  /opt/netbox/netbox/configuration.flag ]; then
+    
+    # Remove existing file first - this is the one delivered with the NetBox image
+    rm -f /opt/netbox/netbox/netbox/configuration.py
+
+    # Create the symbolic link to the configuration file in the workspace    
+    ln -s /workspace/netbox/configuration.py /opt/netbox/netbox/netbox/configuration.py
+    touch /opt/netbox/netbox/configuration.flag
 fi
 
-# 2. Finish configuration of NetBox
+# Finish configuration of NetBox
 echo "Finalizing configuration and starting NetBox development server..."
-exec /opt/netbox/docker-entrypoint.sh "$@"
 
-# 3. Start the NetBox service
-#echo "Starting NetBox development server..."
-#exec "$@"
+exec /opt/netbox/docker-entrypoint.sh "$@"

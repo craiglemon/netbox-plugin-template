@@ -1,8 +1,6 @@
 FROM netboxcommunity/netbox:latest
 
-# Copy in the dev entrypoint and configuration.py
 COPY ../netbox/dev-entrypoint.sh /usr/local/bin/dev-entrypoint.sh
-COPY ../netbox/configuration.py /opt/netbox/netbox/netbox/
 
 RUN apt-get update && \
     apt-get install postgresql-client -y && \
