@@ -3,9 +3,10 @@ FROM netboxcommunity/netbox:latest
 COPY ../netbox/dev-entrypoint.sh /usr/local/bin/dev-entrypoint.sh
 
 RUN apt-get update && \
-    apt-get install postgresql-client -y && \
+    apt-get install postgresql-client python3-venv -y && \
     chmod +x /usr/local/bin/dev-entrypoint.sh && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    python3 -m venv /opt/netbox/venv
 
 # Entrypoint to our wrapper
 ENTRYPOINT [ "/usr/local/bin/dev-entrypoint.sh" ]
