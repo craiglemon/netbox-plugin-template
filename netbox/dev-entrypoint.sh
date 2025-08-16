@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
 cd /opt/netbox/netbox
@@ -18,5 +19,4 @@ fi
 
 # Finish configuration of NetBox
 echo "Finalizing configuration and starting NetBox development server..."
-
 exec /opt/netbox/docker-entrypoint.sh "$@"

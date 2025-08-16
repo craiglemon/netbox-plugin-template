@@ -1,5 +1,4 @@
-# netbox_plugin_example/plugin.py
-from extras.plugins import PluginConfig
+from netbox.plugins import PluginConfig
 
 class NetBoxDemoPluginConfig(PluginConfig):
     name = "netbox_demo_plugin"
@@ -7,4 +6,5 @@ class NetBoxDemoPluginConfig(PluginConfig):
     description = "A simple demo plugin"
     version = "0.1"
     author = "Craig Lemon"
+    author_email = "Craig.Lemon@gmail.com"
     base_url = "demo"
