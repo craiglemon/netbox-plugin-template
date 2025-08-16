@@ -1,45 +1,50 @@
 
-services:
+services: 
   netbox:
     build: 
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: .devcontainer/Dockerfile
     image: registry.lemontree.local/netbox-dev:dev
     container_name: netbox
     ports:
       - "8000:8080"
-    env_file: ./netbox.env
+    env_file: 
+      - netbox.env
+    environment:
+      - TZ=${TIME_ZONE}
     volumes:
       - netbox-media:/opt/netbox/netbox/media
+      - netbox-static:/opt/netbox/netbox/static
       - ../:/workspace
     depends_on:
       - postgres
       - redis
-    entrypoint: []                # Clear any upstream entrypoint
-    command:                      # This is passed as "$@" to dev-entrypoint.sh
-      - /opt/netbox/venv/bin/python3
-      - /opt/netbox/netbox/manage.py
-      - runserver
-      - 0.0.0.0:8080
-
+    
   postgres:
     image: postgres:17.5-alpine
     container_name: netbox-postgres
-    env_file: ./netbox.env
+    env_file: 
+      - netbox.env
+    environment:
+      - TZ=${TIME_ZONE}
     volumes:
       - netbox_db_data:/var/lib/postgresql/data
     
   redis:
     image: redis:8.0.3-alpine
     container_name: netbox-redis
-    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
-    env_file: ./netbox.env
+    env_file: 
+      - netbox.env
+    environment:
+      - TZ=${TIME_ZONE}
     volumes:
       - netbox_redis_data:/data
 
 volumes:
   netbox-media:
     name: netbox_media
+  netbox-static:
+    name: netbox_static
   netbox_db_data:
     name: netbox_db_data
   netbox_redis_data:

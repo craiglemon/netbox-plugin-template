@@ -4,7 +4,7 @@
   "service": "netbox",
   "workspaceFolder": "/workspace",  
   "postStartCommand": "echo NetBox DevContainer is up!",
-  "overrideCommand": false,      // Allow our Compose command to run
+  "overrideCommand": false,      // Do not overwrite the command values, allowing our compose command to run
   "features": {
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.12"
@@ -12,7 +12,9 @@
   },
   "customizations": {
     "vscode": {
-      "settings": {},
+      "settings": {
+        
+      },
       "extensions": [
         "ms-python.python",
         "ms-toolsai.jupyter"

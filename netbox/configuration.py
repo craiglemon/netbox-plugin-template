@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-default-key")
@@ -57,3 +57,7 @@ NAPALM_TIMEOUT = int(os.getenv("NAPALM_TIMEOUT", "30"))
 NAPALM_ARGS = {
     'secret': os.getenv("NAPALM_SECRET", "")
 }
+
+# Timezone
+TIME_ZONE = os.getenv("TIME_ZONE")
+USE_TZ = True
