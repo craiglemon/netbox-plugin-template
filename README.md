@@ -1,6 +1,6 @@
 # Dev Container Template
 
-This repository provides a simple template for setting up a development container using [Visual Studio Code Remote - Containers]
+This repository provides a simple template for setting up a NetBox development container using [Visual Studio Code Remote - Containers]
 It allows you to define a consistent development environment using Docker, making it easier to onboard new developers and maintain reproducibility across machines.
 
 ## 📦 Features

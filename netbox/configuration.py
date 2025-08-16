@@ -42,12 +42,14 @@ REDIS = {
 
 # Plugins
 PLUGINS = [
-    
+    'netbox_demo_plugin'
 ]
 
 # Plugin config (optional example)
 PLUGINS_CONFIG = {
-    
+    'netbox_demo_plugin': {
+     
+    }
 }
 
 # NetBox internal settings
