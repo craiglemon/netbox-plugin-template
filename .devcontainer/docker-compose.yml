@@ -4,7 +4,7 @@ services:
     build: 
       context: ../
       dockerfile: .devcontainer/Dockerfile
-    image: registry.lemontree.local/netbox-dev:dev
+    image: netbox-dev:latest
     container_name: netbox
     ports:
       - "8000:8080"
