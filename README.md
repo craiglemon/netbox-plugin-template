@@ -1,6 +1,7 @@
 # NetBox Plugin Dev Container Template
 
-This repository provides a simple template for setting up a NetBox plugin development container using [Visual Studio Code Remote - Containers](https://code.visualstudio.com/docs/devcontainers/containers), also delivering a basic Netbox plugin that is correctly configured within the Dev Container.  
+This repository provides a simple template for setting up a NetBox plugin development container using [Visual Studio Code Remote - Containers](https://code.visualstudio.com/docs/devcontainers/containers), also delivering a basic Netbox plugin that is correctly configured within the Dev Container.
+
 It allows you to define a consistent development environment using Docker, that is ready to go allowing focus to be put on the plugin development rather than the environment setup.
 
 This repository is a GitHub template repository, making it easy to create your own repository using this as the base.
