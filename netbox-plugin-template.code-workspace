@@ -41,6 +41,12 @@
 					"host": "127.0.0.1",
 					"port": 5678
 				},
+				"pathMappings": [
+					{
+						"localRoot": "${workspaceFolder}/plugins",
+						"remoteRoot": "/opt/netbox/netbox/plugins"
+					}
+				],
 				"justMyCode": false
 			}
 		]
