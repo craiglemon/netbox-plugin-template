@@ -25,6 +25,14 @@ wait_for_startup() {
     while ! nc -z "$REDIS_HOST" 6379; do sleep 1; done
 }
 
+# When running the pip install command to install the plugin, the following warning is displayed:
+#   DEPRECATION: Legacy editable install of my_plugin==0.1 from file:///opt/netbox/netbox/plugins/my_plugin (setup.py develop) is deprecated. 
+#   pip 25.3 will enforce this behaviour change. A possible replacement is to add a pyproject.toml or enable --use-pep517, and use setuptools >= 64. 
+#   If the resulting installation is not behaving as expected, try using --config-settings editable_mode=compat. Please consult the setuptools 
+#   documentation for more information. Discussion can be found at https://github.com/pypa/pip/issues/11457⁠
+#
+#   FIXME: Fix the above deprecation warning when installing the plugin
+#
 install_plugins() {
     # TODO: change this so that they are loaded dynamically form an environment variable - perhaps comma-separated
     echo "⬇️ Installing named plugins..."
