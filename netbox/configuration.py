@@ -1,13 +1,13 @@
 import os
 from pathlib import Path
 
-#BASE_DIR = Path(__file__).resolve().parent.parent
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-default-key")
 
 # Debug mode
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+MAX_DB_WAIT_TIME = os.getenv("MAX_DB_WAIT_TIME", "30")
+DEVELOPER = True
 
 # Allowed hosts
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
@@ -42,22 +42,14 @@ REDIS = {
 
 # Plugins
 PLUGINS = [
-    'netbox_demo_plugin'
+    'my_plugin'
 ]
 
-# Plugin config (optional example)
+# Plugin config
 PLUGINS_CONFIG = {
-    'netbox_demo_plugin': {
-     
+    'my_plugin': {
+    
     }
-}
-
-# NetBox internal settings
-NAPALM_USERNAME = os.getenv("NAPALM_USERNAME", "")
-NAPALM_PASSWORD = os.getenv("NAPALM_PASSWORD", "")
-NAPALM_TIMEOUT = int(os.getenv("NAPALM_TIMEOUT", "30"))
-NAPALM_ARGS = {
-    'secret': os.getenv("NAPALM_SECRET", "")
 }
 
 # Timezone

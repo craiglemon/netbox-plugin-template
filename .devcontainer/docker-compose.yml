@@ -1,45 +1,40 @@
 
-services: 
-  netbox:
-    build: 
-      context: ../
-      dockerfile: .devcontainer/Dockerfile
-    image: netbox-dev:latest
-    container_name: netbox
-    ports:
-      - "8000:8080"
-    env_file: 
-      - netbox.env
-    volumes:
-      - netbox-media:/opt/netbox/netbox/media
-      - netbox-static:/opt/netbox/netbox/static
-      - ../:/workspace
-    depends_on:
-      - postgres
-      - redis
-    
+services:
   postgres:
-    image: postgres:17.5-alpine
+    image: postgres:alpine
     container_name: netbox-postgres
     env_file: 
       - netbox.env
     volumes:
-      - netbox_db_data:/var/lib/postgresql/data
-    
+      - postgres_data:/var/lib/postgresql/data
+
   redis:
-    image: redis:8.0.3-alpine
+    image: redis:alpine
     container_name: netbox-redis
     env_file: 
       - netbox.env
+    command: redis-server --save 60 1 --loglevel warning
+
+  netbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: netbox-dev:slim
+    container_name: netbox
+    env_file: 
+      - netbox.env
+    depends_on:
+      - postgres
+      - redis
     volumes:
-      - netbox_redis_data:/data
+      - netbox_media:/opt/netbox/netbox/media
+      - netbox_static:/opt/netbox/netbox/static
+      - ../plugins:/opt/netbox/netbox/plugins:cached
+    ports:
+      - "8000:8000"
+      - "5678:5678"
 
 volumes:
-  netbox-media:
-    name: netbox_media
-  netbox-static:
-    name: netbox_static
-  netbox_db_data:
-    name: netbox_db_data
-  netbox_redis_data:
-    name: netbox_redis_data
+  postgres_data:
+  netbox_media:
+  netbox_static:

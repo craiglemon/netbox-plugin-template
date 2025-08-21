@@ -1,21 +1,26 @@
-FROM netboxcommunity/netbox:latest
+FROM python:slim
 
-COPY ../.devcontainer/startup.sh /usr/local/bin/startup.sh
-
+# System dependencies
 RUN apt-get update && \
-    apt-get install postgresql-client python3-venv -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    python3 -m venv /opt/netbox/venv && \
-    chmod +x /usr/local/bin/startup.sh
+    apt-get install -y --no-install-recommends \
+      build-essential git libmariadb-dev-compat libmariadb-dev \
+      libxml2-dev libxslt1-dev libpq-dev netcat-openbsd && \
+    rm -rf /var/lib/apt/lists/*
 
-# Entrypoint to our wrapper
-#   startup.sh is a static file that is copied into the container, which in turn sets +x on /workspace/netbox/dev-entrypoint.sh before
-#   executing it. This allows us to run the dev-entrypoint.sh script with the correct permissions and without needing to modify the 
-#   Dockerfile and base image when making changes to dev-entrypoint.sh
-ENTRYPOINT [ "/usr/local/bin/startup.sh" ]
+# Ensure future RUN steps use the venv’s python & pip
+ENV PATH="/opt/netbox/venv/bin:${PATH}"
+WORKDIR /opt
 
-# Set the default command to run the NetBox development server
-#   These parameters are eventually passed into dev-entrypoint.sh script as command args
-CMD [ "/opt/netbox/venv/bin/python3", "/opt/netbox/netbox/manage.py", "runserver", "0.0.0.0:8080" ]
+# Clone NetBox core, install dependencies and requirements
+RUN git clone --depth 1 https://github.com/netbox-community/netbox.git netbox && \
+  cd netbox && \
+  python3 -m venv /opt/netbox/venv && \
+  pip install --upgrade pip setuptools wheel && \
+  pip install -r requirements.txt && \
+  pip install debugpy
 
-WORKDIR /workspace
+# Copy entrypoint to inject debugpy
+COPY devcontainer-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/devcontainer-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/devcontainer-entrypoint.sh"]
