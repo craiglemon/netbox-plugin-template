@@ -1,0 +1,6 @@
+[build-system]
+requires = [
+    "setuptools>=66.0",   # for PEP 660 editable-wheel support
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
